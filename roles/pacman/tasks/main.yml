@@ -1,0 +1,24 @@
+---
+- name: Configure pacman (/etc/pacman.conf)
+  lineinfile:
+    path: /etc/pacman.conf
+    regexp: "{{ item.value }}"
+    line: "{{ item.replace_value }}"
+  loop:
+    - { value: "#Color", replace_value: "Color" }
+    - { value: "NoProgressBar", replace_value: "#NoProgressBar" }
+    - { value: "#VerbosePkgLists", replace_value: "VerbosePkgLists" }
+    - { value: "#ILoveCandy", replace_value: "ILoveCandy" }
+    - { value: "ParallelDownloads", replace_value: "ParallelDownloads = {{ pacman_parallel_downloads }}" }
+  become: true
+
+- name: Configure make (/etc/makepkg.conf)
+  lineinfile:
+    path: /etc/makepkg.conf
+    regexp: "#MAKEFLAGS="
+    line: "MAKEFLAGS=\"-j{{ make_processor_core }}\""
+  become: true
+
+
+
+

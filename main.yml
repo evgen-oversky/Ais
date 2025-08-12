@@ -1,0 +1,7 @@
+---
+- name: Install arch linux enviroment
+  hosts: localhost
+  become: true
+
+  roles:
+    - { role: pacman, tags: ['pacman'] }

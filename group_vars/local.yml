@@ -1,0 +1,8 @@
+---
+
+pacman_parallel_downloads: 5
+
+# https://wiki.archlinux.org/index.php/Makepkg#Parallel_compilation
+make_processor_core: 4 # Defuilt 2
+
+
