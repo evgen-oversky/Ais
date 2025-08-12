@@ -1,0 +1,6 @@
+---
+- name: enable locales
+  block:
+    - lineinfile:
+        path: /etc/locale.gen
+        regexp:

@@ -4,4 +4,5 @@
   become: true
 
   roles:
-    - { role: pacman, tags: ['pacman'] }
+#    - { role: pacman, tags: ['pacman'] }
+    - { role: locale, tags: ['locale'] }
