@@ -10,3 +10,5 @@ locale_generate:
   - en_US.UTF-8
 
 locale_default: en_US.UTF-8
+
+locale_tiemezone: Asia/Krasnoyarsk
