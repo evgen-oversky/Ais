@@ -1,6 +1,25 @@
 ---
-- name: enable locales
-  block:
-    - lineinfile:
-        path: /etc/locale.gen
-        regexp:
+- name: enable locales (/etc/locale.gen)
+  lineinfile:
+    path: /etc/locale.gen
+    regexp: "^#({{ item }})+(.*)$"
+    backrefs: yes
+    line: '\1\2'
+    state: present
+  with_items: "{{ locale_generate }}"
+  become: yes
+  
+- name: generate locales
+  command: locale-gen
+  become: yes
+
+- name: set locale settings (/etc/locale.conf)
+  lineinfile:
+    path: /etc/locale.conf
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - { regexp: "^LANG=", line: "LANG={{ locale_default }}" }
+  become: yes
+
+  # Wed Aug 13 05:26:42 AM UTC 2025
