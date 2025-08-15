@@ -1,12 +1,13 @@
 ---
+
 - name: enable locales (/etc/locale.gen)
   lineinfile:
     path: /etc/locale.gen
     regexp: "^#({{ item }})+(.*)$"
-    backrefs: yes
+    backrefs: true 
     line: '\1\2'
     state: present
-  with_items: "{{ locale_generate }}"
+  with_items: "{{ locales_generate }}"
   become: true
   
 - name: generate locales
@@ -20,14 +21,11 @@
     line: "{{ item.line }}"
   with_items:
     - { regexp: "^LANG=", line: "LANG={{ locale_default }}" }
+    - { regexp: "^LANGUAGE=", line: "LANGUAGE={{ locale_default }}" }
   become: true
 
-- name: set timezone (/etc/localetime)
-  file:
-    src: /usr/share/zoneinfo/{{ locale_tiemezone }}
-    dest: /etc/localtime
-    state: link
+- name: set timezone (/etc/locales)
+  ansible.builtin.timezone:
+    name: "{{ locale_timezone }}"
   become: true
 
-
-  # Wed Aug 13 05:26:42 AM UTC 2025
