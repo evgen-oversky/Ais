@@ -9,7 +9,7 @@
     state: present
   with_items: "{{ locales_generate }}"
   become: true
-  
+
 - name: generate locales
   command: locale-gen
   become: true
@@ -29,3 +29,4 @@
     name: "{{ locale_timezone }}"
   become: true
 
+# Добавить NTP
