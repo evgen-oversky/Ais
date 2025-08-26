@@ -29,4 +29,9 @@
     name: "{{ locale_timezone }}"
   become: true
 
-# Добавить NTP
+- name: start ntp (systemd-timesyncd)
+  ansible.builtin.systemd:
+    name: systemd-timesyncd
+    state: started
+    enabled: yes
+  become: true
