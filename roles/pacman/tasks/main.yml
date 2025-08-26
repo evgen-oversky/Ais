@@ -1,23 +1,57 @@
 ---
-- name: Configure pacman (/etc/pacman.conf)
+
+
+# https://wiki.archlinux.org/title/Pacman/Pacnew_and_Pacsave
+# https://wiki.archlinux.org/title/Mirrors
+
+
+# /etc/pacman.conf
+- name: Configure pacman
   lineinfile:
     path: /etc/pacman.conf
-    regexp: "{{ item.value }}"
-    line: "{{ item.replace_value }}"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
   loop:
-    - { value: "#Color", replace_value: "Color" }
-    - { value: "NoProgressBar", replace_value: "#NoProgressBar" }
-    - { value: "#VerbosePkgLists", replace_value: "VerbosePkgLists" }
-    - { value: "#ILoveCandy", replace_value: "ILoveCandy" }
-    - { value: "ParallelDownloads", replace_value: "ParallelDownloads = {{ pacman_parallel_downloads }}" }
+    - { regexp: "^#Color", line: "Color" }
+    - { regexp: "^NoProgressBar", line: "#NoProgressBar" }
+    - { regexp: "^#VerbosePkgLists", line: "VerbosePkgLists" }
+#    - { regexp: "^#ILoveCandy", line: "ILoveCandy" }
+    - { regexp: "^ParallelDownloads", line: "ParallelDownloads = {{ pacman_parallel_downloads }}" }
   become: true
 
-- name: Configure make (/etc/makepkg.conf)
+# /etc/makepkg.conf
+- name: Configure make
   lineinfile:
     path: /etc/makepkg.conf
     regexp: "#MAKEFLAGS="
     line: "MAKEFLAGS=\"-j{{ make_processor_core }}\""
   become: true
 
+- name: install pacman packages
+  pacman: 
+    name: "{{ pacman_pkgs }}"
+    state: present
+  become: yes
 
+# /etc/xdg/reflector/reflector.conf
+- name: configure reflector
+  copy:
+    src: reflector.conf
+    dest: /etc/xdg/reflector/
+  become: yes
+
+# One-shot start reflector.service
+- name: set mirrorlist in /etc/pacman.d/mirrorlist
+  systemd:
+    name: reflector.service
+    state: started
+  become: yes
+
+# Start reflector.service once a week
+- name: enable reflector.timer
+  systemd:
+    name: reflector.timer
+    state: started
+    enabled: yes
+  become: yes
 

@@ -1,0 +1,19 @@
+---
+
+pacman_pkgs:
+  - archlinux-keyring # https://wiki.archlinux.org/index.php/Pacman-key#Cannot_import_keys
+  - reflector # https://wiki.archlinux.org/title/Reflector
+
+
+
+pacman_parallel_downloads: 5
+
+# https://wiki.archlinux.org/index.php/Makepkg#Parallel_compilation
+make_processor_core: 4 # Defuilt 2
+
+locales_generate:
+  - "en_US.UTF-8 UTF-8"
+
+locale_default: en_US.UTF-8
+
+locale_timezone: Asia/Krasnoyarsk
