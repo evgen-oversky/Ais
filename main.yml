@@ -1,6 +1,6 @@
 ---
 - name: Install arch linux enviroment
-  hosts: localhost
+  hosts: vagrant
   become: true
 
   roles:
