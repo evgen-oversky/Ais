@@ -3,7 +3,18 @@
 pacman_pkgs:
   - reflector # https://wiki.archlinux.org/title/Reflector
 
+user_pkgs:
+  - sudo
 
+audio_pkgs:
+  - pipewire
+  - pipewire-alsa
+  - pipewire-jack
+  - pipewire-pulse
+  - wireplumber
+
+
+user_name: arch
 
 pacman_parallel_downloads: 5
 

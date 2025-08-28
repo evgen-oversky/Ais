@@ -4,5 +4,6 @@
   become: true
 
   roles:
-    - { role: geolocation, tags: ['locale'] }
-#    - { role: pacman, tags: ['pacman'] }
+#    - { role: geolocation, tags: ['locale'] }
+#    - { role: package_manager, tags: ['pacman'] }
+    - { role: audio, tags: ['audio'] }

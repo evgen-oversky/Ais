@@ -1,0 +1,20 @@
+---
+
+- name: install audio packages
+  pacman:
+    name: "{{ audio_pkgs }}"
+    state: present
+  become: true
+
+- name: enable and start audio service
+  systemd:
+    name: "{{ item }}"
+    scope: user
+    state: started
+    enabled: true
+  loop:
+    - pipewire
+    - pipewire-pulse
+    - wireplumber
+  become:
+  become_user: "{{ user_name }}"
