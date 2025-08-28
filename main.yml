@@ -1,8 +1,8 @@
 ---
 - name: Install arch linux enviroment
-  hosts: vagrant
+  hosts: arch
   become: true
 
   roles:
-    - { role: pacman, tags: ['pacman'] }
-#    - { role: locale, tags: ['locale'] }
+    - { role: geolocation, tags: ['locale'] }
+#    - { role: pacman, tags: ['pacman'] }

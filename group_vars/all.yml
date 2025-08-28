@@ -12,6 +12,7 @@ make_processor_core: 4 # Defuilt 2
 
 locales_generate:
   - "en_US.UTF-8 UTF-8"
+  - "ru_RU.UTF-8 UTF-8"
 
 locale_default: en_US.UTF-8
 
