@@ -1,5 +1,10 @@
 ---
 
+pacman_pkgs:
+  - reflector # https://wiki.archlinux.org/title/Reflector
+
+
+
 pacman_parallel_downloads: 5
 
 # https://wiki.archlinux.org/index.php/Makepkg#Parallel_compilation
